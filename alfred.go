@@ -10,6 +10,7 @@ import (
 	"github.com/slack-go/slack"
 )
 
+//types should be in separate type.go file
 type urlVerification struct {
 	Token     string `json:"token"`
 	Challenge string `json:"challenge"`
@@ -103,10 +104,12 @@ func send(w http.ResponseWriter, r *http.Request) {
 		eventType := msg.Event.Type
 		fmt.Println("\n" + eventType + " is the event type")
 
+		//probably shouldn't hardcode the bot's key
 		api := slack.New("xoxb-3796174298896-3769530677237-FFoh89wMBAcp79s09YDq9Bjm")
 
 		if eventType == "app_mention" {
 			messageText := msg.Event.Text
+			//same with hardcoding the channel ID
 			channelID, timestamp, err := api.PostMessage("C03N9Q7P5JB", slack.MsgOptionText(messageText, false))
 
 			if err != nil {
