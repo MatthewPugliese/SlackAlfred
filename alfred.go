@@ -109,6 +109,12 @@ func send(w http.ResponseWriter, r *http.Request) {
 
 		if eventType == "app_mention" {
 			messageText := msg.Event.Text
+			if len(messageText) <= 15 {
+				messageText = " "
+			} else {
+				messageText = messageText[15:]
+			}
+
 			//same with hardcoding the channel ID
 			channelID, timestamp, err := api.PostMessage("C03N9Q7P5JB", slack.MsgOptionText(messageText, false))
 
